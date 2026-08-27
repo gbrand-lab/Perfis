@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { pillars, brief } from '../../data/index.js'
-import PillarCard from './PillarCard.jsx'
+import PillarCard from '@shared/components/planning/PillarCard.jsx'
 
 export default function PlanningTab() {
   const [activeIndex, setActiveIndex] = useState(null)

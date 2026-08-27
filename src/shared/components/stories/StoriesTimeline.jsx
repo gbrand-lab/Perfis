@@ -1,7 +1,6 @@
-import { storiesPlan } from '../../data/index.js'
 import TimelineChip from './TimelineChip.jsx'
 
-export default function StoriesTimeline() {
+export default function StoriesTimeline({ storiesPlan, storyTypes }) {
   return (
     <div className="stories-timeline">
       {storiesPlan.map((d) => (
@@ -12,7 +11,7 @@ export default function StoriesTimeline() {
           </div>
           <div className="timeline-strip">
             {d.stories.map((story, idx) => (
-              <TimelineChip key={idx} story={story} />
+              <TimelineChip key={idx} story={story} storyTypes={storyTypes} />
             ))}
           </div>
         </div>

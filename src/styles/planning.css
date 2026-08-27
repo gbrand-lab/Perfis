@@ -1,0 +1,21 @@
+/* ---- Planning & pillars ---- */
+.pillars-grid{
+  margin-top:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;
+}
+.pillar-card{
+  background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  padding:20px;border-top:4px solid var(--ink-deep);
+}
+.pillar-card h3{font-size:1.02rem;font-weight:600;margin:8px 0 6px;}
+.pillar-desc{font-size:.85rem;color:var(--text-mute);margin:0 0 12px;}
+.tag{
+  display:inline-block;font-size:.66rem;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;padding:4px 9px;border-radius:5px;
+  background:var(--bg);color:var(--accent-deep);
+}
+.pillar-expect{border-top:1px dashed var(--line);padding-top:10px;margin-top:4px;}
+.pillar-expect-label{
+  font-size:.66rem;text-transform:uppercase;letter-spacing:.06em;
+  font-weight:700;color:var(--text-mute);
+}
+.pillar-expect p{font-size:.84rem;margin:6px 0 0;}

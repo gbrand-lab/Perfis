@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { upcomingMonths } from '../../data/index.js'
-import { apiUrl } from '../../api.js'
+import { apiUrl } from '@shared/api.js'
+import PostDrawer from '@shared/components/feed/PostDrawer.jsx'
 import MonthGrid from './MonthGrid.jsx'
-import PostDrawer, { CLIENTE } from './PostDrawer.jsx'
+
+const CLIENTE = 'rally-sports-feed'
 
 export default function FeedCalendarTab() {
   const months = upcomingMonths(2)
@@ -117,6 +119,7 @@ export default function FeedCalendarTab() {
       {selectedDate && (
         <PostDrawer
           date={selectedDate}
+          clientId={CLIENTE}
           posts={postsDoDia}
           onClose={() => setSelectedDate(null)}
           onCreate={handleCreate}

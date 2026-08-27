@@ -1,7 +1,6 @@
-import { storiesPlan } from '../../data/index.js'
 import StoryChip from './StoryChip.jsx'
 
-export default function StoriesWeekCards() {
+export default function StoriesWeekCards({ storiesPlan, storyTypes }) {
   return (
     <div className="stories-week">
       {storiesPlan.map((d) => (
@@ -13,7 +12,7 @@ export default function StoriesWeekCards() {
           {d.note && <p className="stories-note">{d.note}</p>}
           <div className="stories-list">
             {d.stories.map((story, idx) => (
-              <StoryChip key={idx} story={story} />
+              <StoryChip key={idx} story={story} storyTypes={storyTypes} />
             ))}
           </div>
         </div>

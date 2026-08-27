@@ -1,0 +1,48 @@
+/* ---- Calendar ---- */
+.month-banner{
+  display:flex;align-items:baseline;gap:10px;
+  padding:14px 22px;margin-bottom:20px;border-radius:12px;
+  background:var(--ink-deep);
+}
+.month-name{
+  font-weight:700;font-size:1.7rem;color:var(--white);
+  letter-spacing:.01em;
+}
+.month-year{font-size:.95rem;color:color-mix(in srgb, var(--white) 75%, transparent);font-weight:600;}
+
+.calendar-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:10px;margin-bottom:6px;}
+
+.calendar-grid{
+  margin-top:20px;
+  display:grid;grid-template-columns:repeat(7,1fr);gap:6px;
+}
+.calendar-weekday{
+  font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;font-weight:700;
+  color:var(--text-mute);text-align:center;padding-bottom:4px;
+}
+.calendar-cell{
+  min-height:92px;border-radius:8px;border:1px solid var(--line);
+  background:var(--surface);padding:8px;display:flex;flex-direction:column;gap:6px;
+}
+.calendar-cell--blank{background:transparent;border:none;}
+.cell-day{font-size:.72rem;font-weight:700;color:var(--text-mute);font-variant-numeric:tabular-nums;}
+
+/* ---- Months stack ---- */
+.months-stack{display:flex;flex-direction:column;gap:36px;margin-top:28px;}
+.month-block .month-banner{margin-bottom:0;}
+.month-block .calendar-grid{margin-top:16px;}
+
+/* ---- Calendar cell click + photo indicator ---- */
+.calendar-cell--clickable{
+  cursor:pointer;text-align:left;font:inherit;color:inherit;
+  transition:border-color .15s,box-shadow .15s;
+}
+.calendar-cell--clickable:hover{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent);}
+.cell-photo-dot{
+  display:inline-block;width:6px;height:6px;border-radius:50%;
+  background:var(--accent);margin-left:5px;vertical-align:middle;
+}
+
+@media (max-width:640px){
+  .calendar-cell{min-height:76px;padding:6px;}
+}

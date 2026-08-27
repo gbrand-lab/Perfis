@@ -1,6 +1,4 @@
-import { storyTypes } from '../../data/index.js'
-
-export default function TimelineChip({ story }) {
+export default function TimelineChip({ story, storyTypes }) {
   const typeInfo = storyTypes[story.type]
   return (
     <div className={`timeline-chip ${typeInfo?.className ?? ''}`}>

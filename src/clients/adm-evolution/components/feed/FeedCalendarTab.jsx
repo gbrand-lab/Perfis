@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { upcomingMonths, postIdeasByMonth } from '../../data/index.js'
-import { apiUrl } from '../../api.js'
+import { apiUrl } from '@shared/api.js'
+import PostDrawer from '@shared/components/feed/PostDrawer.jsx'
 import MonthGrid from './MonthGrid.jsx'
-import PostDrawer, { CLIENTE } from './PostDrawer.jsx'
+
+const CLIENTE = 'adm-evolution-feed'
 
 export default function FeedCalendarTab() {
   const months = upcomingMonths(2, 1)
@@ -128,6 +130,7 @@ export default function FeedCalendarTab() {
       {selectedDate && (
         <PostDrawer
           date={selectedDate}
+          clientId={CLIENTE}
           posts={postsDoDia}
           onClose={() => setSelectedDate(null)}
           onCreate={handleCreate}

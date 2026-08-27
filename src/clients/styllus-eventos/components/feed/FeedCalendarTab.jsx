@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { postIdeasByMonth, MONTH_NAME } from '../../data/index.js'
-import { apiUrl } from '../../api.js'
+import { apiUrl } from '@shared/api.js'
+import PostDrawer from '@shared/components/feed/PostDrawer.jsx'
 import MonthGrid from './MonthGrid.jsx'
-import PostDrawer, { CLIENTE } from './PostDrawer.jsx'
+
+const CLIENTE = 'styllus-eventos-feed'
 
 export default function FeedCalendarTab() {
   const ideasByDate = useMemo(() => {
@@ -133,6 +135,7 @@ export default function FeedCalendarTab() {
       {selectedDate && (
         <PostDrawer
           date={selectedDate}
+          clientId={CLIENTE}
           posts={postsDoDia}
           onClose={() => setSelectedDate(null)}
           onCreate={handleCreate}

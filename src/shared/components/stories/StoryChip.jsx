@@ -1,6 +1,4 @@
-import { storyTypes } from '../../data/index.js'
-
-export default function StoryChip({ story }) {
+export default function StoryChip({ story, storyTypes }) {
   const typeInfo = storyTypes[story.type]
   return (
     <div className={`story-chip ${typeInfo?.className ?? ''}`}>
