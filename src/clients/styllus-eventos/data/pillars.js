@@ -1,0 +1,52 @@
+// Pilares de conteúdo definidos no Briefing & Brainstorm.
+export const pillars = [
+  {
+    id: 'cardapio-prato-estrela',
+    name: 'Cardápio & Prato Estrela',
+    cadence: 'Fixo · 2×/semana',
+    desc: 'Reels e fotos em close-up de pratos, sobremesas, petiscos e preparações do cardápio, seguindo o estilo que já performa no perfil atual.',
+    expectation: 'Manter reconhecimento de marca associado a comida bem apresentada; alimentar o feed com constância.'
+  },
+  {
+    id: 'bastidores-montagem',
+    name: 'Bastidores de Montagem',
+    cadence: 'Fixo · 1×/semana',
+    desc: 'Vídeos/fotos da equipe montando o buffet em diferentes locais (salões, casas, espaços de eventos), mostrando adaptação a cada ambiente.',
+    expectation: 'Comunicar o diferencial de ser um buffet itinerante sem espaço próprio — "vamos até você, em qualquer lugar".'
+  },
+  {
+    id: 'prova-social',
+    name: 'Prova Social / Depoimento',
+    cadence: 'Fixo · 1×/semana',
+    desc: 'Depoimentos de clientes, prints de mensagens de agradecimento, avaliações e reações de convidados no evento.',
+    expectation: 'Reduzir insegurança de quem está decidindo contratar; gerar confiança e prova de qualidade do serviço.'
+  },
+  {
+    id: 'evento-completo',
+    name: 'Evento Completo (experiência)',
+    cadence: 'Quinzenal',
+    desc: 'Carrossel ou reel mostrando o evento do início ao fim: chegada da equipe, montagem, mesa decorada, momento do buffet servido e convidados.',
+    expectation: 'Vender a experiência completa do evento, não só o prato isolado — inspirado na linha editorial de @gourmetprimebuffet.'
+  },
+  {
+    id: 'institucional-equipe',
+    name: 'Institucional / Bastidor de Equipe',
+    cadence: 'Quinzenal',
+    desc: 'Conteúdo humanizado sobre a equipe, cuidados de higiene/organização, valores da marca e rotina de preparação antes dos eventos.',
+    expectation: 'Humanizar a marca e reforçar profissionalismo e cuidado, aumentando a percepção de confiabilidade.'
+  },
+  {
+    id: 'degustacao',
+    name: 'Degustação',
+    cadence: 'Quinzenal',
+    desc: 'Convite/registro de sessões de degustação do cardápio — bastidor de prova de prato, reação de convidados/clientes experimentando, chamada para agendar degustação.',
+    expectation: 'Gerar leads diretos (agendamento de degustação) e servir como prova de qualidade do cardápio antes da contratação — inspirado em @buffetgardens.'
+  },
+  {
+    id: 'frase-assinatura',
+    name: 'Frase-Assinatura',
+    cadence: 'Quinzenal',
+    desc: 'Post estático com frase de posicionamento própria da marca (tagline), unindo imagem de evento/prato a uma mensagem curta sobre celebração, cuidado ou experiência — não sobre o prato em si.',
+    expectation: 'Construir identidade e recall de marca através de uma linha de comunicação autoral, fixando a Styllus como algo além de "buffet que serve comida" — inspirado em @buffetgardens e @pieggieventos.'
+  }
+]
