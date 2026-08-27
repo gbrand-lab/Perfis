@@ -1,4 +1,4 @@
-import { MONTH_NAME, WEEKDAY_HEADERS } from '../../data/index.js'
+import { MONTH_NAME, WEEKDAY_HEADERS } from './MonthGrid.jsx'
 
 function toDateKey(year, monthIndex, day) {
   const m = String(monthIndex + 1).padStart(2, '0')
@@ -6,7 +6,17 @@ function toDateKey(year, monthIndex, day) {
   return `${year}-${m}-${d}`
 }
 
-export default function MonthGrid({ year, monthIndex, postsByDate = new Map(), onSelectDate }) {
+// Igual ao MonthGrid genérico, mas com overlay de ideias planejadas
+// (usado pelos clientes com aba de Ideias/Post Ideas). `ideaTooltip` deixa
+// cada cliente customizar o texto do title do dia.
+export default function IdeaMonthGrid({
+  year,
+  monthIndex,
+  postsByDate = new Map(),
+  ideasByDate = new Map(),
+  onSelectDate,
+  ideaTooltip = (idea) => `Ideia planejada: ${idea.title}`,
+}) {
   const daysInMonth = new Date(year, monthIndex + 1, 0).getDate()
   const leadingBlanks = new Date(year, monthIndex, 1).getDay() // 0 dom
   const totalCells = leadingBlanks + daysInMonth
@@ -32,17 +42,20 @@ export default function MonthGrid({ year, monthIndex, postsByDate = new Map(), o
           if (day === null) return <div key={idx} className="calendar-cell calendar-cell--blank" />
           const dateKey = toDateKey(year, monthIndex, day)
           const dayPosts = postsByDate.get(dateKey) ?? []
+          const idea = ideasByDate.get(dateKey)
           return (
             <button
               key={idx}
               type="button"
-              className={`calendar-cell calendar-cell--clickable ${dayPosts.length > 0 ? 'calendar-cell--filled' : ''}`}
+              className={`calendar-cell calendar-cell--clickable ${dayPosts.length > 0 ? 'calendar-cell--filled' : ''} ${idea ? 'calendar-cell--idea' : ''}`}
               onClick={() => onSelectDate?.(dateKey)}
+              title={idea ? ideaTooltip(idea) : undefined}
             >
               <span className="cell-day">
                 {day}
                 {dayPosts.length > 0 && <span className="cell-photo-dot" title={`${dayPosts.length} foto(s) anexada(s)`} />}
               </span>
+              {idea && <span className="idea-cell-label">{idea.title}</span>}
             </button>
           )
         })}

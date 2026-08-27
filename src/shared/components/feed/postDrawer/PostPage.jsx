@@ -3,7 +3,9 @@ import ImageSection from './ImageSection.jsx'
 
 export default function PostPage({ date, post, clientId, onSave, onDelete, onCancel, onPreview, confirming }) {
   const [dataPost, setDataPost] = useState(post?.data ?? date)
+  const [nome, setNome] = useState(post?.nome ?? '')
   const [descricao, setDescricao] = useState(post?.descricao ?? '')
+  const [legenda, setLegenda] = useState(post?.legenda ?? '')
   const [referenciaImagens, setReferenciaImagens] = useState(post?.referenciaImagens ?? [])
   const [materialImagens, setMaterialImagens] = useState(post?.materialImagens ?? [])
   const [fotoProntaImagens, setFotoProntaImagens] = useState(post?.fotoProntaImagens ?? [])
@@ -19,6 +21,10 @@ export default function PostPage({ date, post, clientId, onSave, onDelete, onCan
   }
 
   async function handleSave() {
+    if (!nome.trim()) {
+      setError('O nome do post é obrigatório.')
+      return
+    }
     if (!descricao.trim()) {
       setError('A legenda é obrigatória.')
       return
@@ -29,7 +35,9 @@ export default function PostPage({ date, post, clientId, onSave, onDelete, onCan
       await onSave({
         data: dataPost,
         cliente: clientId,
+        nome: nome.trim(),
         descricao: descricao.trim(),
+        legenda: legenda.trim(),
         referenciaImagens,
         materialImagens,
         fotoProntaImagens,
@@ -71,13 +79,24 @@ export default function PostPage({ date, post, clientId, onSave, onDelete, onCan
       <div className="post-page-columns">
         <div className="post-page-col">
           <div className="field">
+            <label htmlFor={`nome-${post?.id ?? 'new'}`}>Nome do post</label>
+            <input
+              id={`nome-${post?.id ?? 'new'}`}
+              type="text"
+              value={nome}
+              onChange={(e) => setNome(e.target.value)}
+              placeholder="Ex: Produto - Rótulo IPA"
+            />
+          </div>
+
+          <div className="field">
             <label htmlFor={`copy-${post?.id ?? 'new'}`}>Copy</label>
             <textarea
               id={`copy-${post?.id ?? 'new'}`}
               value={descricao}
               onChange={(e) => setDescricao(e.target.value)}
               rows={5}
-              placeholder="Legenda / texto do post"
+              placeholder="Roteiro / texto de trabalho do post"
             />
             {error && <span className="field-error">{error}</span>}
           </div>
@@ -112,6 +131,17 @@ export default function PostPage({ date, post, clientId, onSave, onDelete, onCan
             allowPaste
             large
           />
+
+          <div className="field">
+            <label htmlFor={`legenda-${post?.id ?? 'new'}`}>Legenda</label>
+            <textarea
+              id={`legenda-${post?.id ?? 'new'}`}
+              value={legenda}
+              onChange={(e) => setLegenda(e.target.value)}
+              rows={5}
+              placeholder="Legenda final pra publicar junto com a foto pronta"
+            />
+          </div>
         </div>
       </div>
 

@@ -1,14 +1,10 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { upcomingMonths } from '../../data/index.js'
-import { apiUrl } from '@shared/api.js'
-import PostDrawer from '@shared/components/feed/PostDrawer.jsx'
-import MonthGrid from './MonthGrid.jsx'
+import { apiUrl } from './api.js'
 
-const CLIENTE = 'rally-sports-feed'
-
-export default function FeedCalendarTab() {
-  const months = upcomingMonths(2)
-
+// CRUD de posts do calendário, compartilhado por todos os clientes (fixos e
+// os criados pela UI). Cada FeedCalendarTab só cuida do que é específico
+// dele (meses exibidos, ideias planejadas); o resto é sempre igual.
+export function usePostsCrud(clientId) {
   const [posts, setPosts] = useState([])
   const [selectedDate, setSelectedDate] = useState(null)
   const [error, setError] = useState(null)
@@ -18,11 +14,11 @@ export default function FeedCalendarTab() {
       const res = await fetch(apiUrl('/api/posts'))
       if (!res.ok) throw new Error('Falha ao carregar os posts.')
       const data = await res.json()
-      setPosts(data.filter((p) => p.cliente === CLIENTE))
+      setPosts(data.filter((p) => p.cliente === clientId))
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Erro desconhecido ao carregar posts.')
     }
-  }, [])
+  }, [clientId])
 
   useEffect(() => {
     loadPosts()
@@ -93,40 +89,14 @@ export default function FeedCalendarTab() {
     }
   }
 
-  return (
-    <div className="panel">
-      <div className="calendar-head">
-        <h2>Calendário de feed</h2>
-      </div>
-      <p className="section-desc">
-        Clique em qualquer dia para subir a foto do post com a legenda.
-      </p>
-
-      {error && <div className="banner-error">{error}</div>}
-
-      <div className="months-stack">
-        {months.map((m) => (
-          <MonthGrid
-            key={`${m.year}-${m.monthIndex}`}
-            year={m.year}
-            monthIndex={m.monthIndex}
-            postsByDate={postsByDate}
-            onSelectDate={setSelectedDate}
-          />
-        ))}
-      </div>
-
-      {selectedDate && (
-        <PostDrawer
-          date={selectedDate}
-          clientId={CLIENTE}
-          posts={postsDoDia}
-          onClose={() => setSelectedDate(null)}
-          onCreate={handleCreate}
-          onUpdate={handleUpdate}
-          onDelete={handleDelete}
-        />
-      )}
-    </div>
-  )
+  return {
+    postsByDate,
+    postsDoDia,
+    selectedDate,
+    setSelectedDate,
+    error,
+    handleCreate,
+    handleUpdate,
+    handleDelete,
+  }
 }

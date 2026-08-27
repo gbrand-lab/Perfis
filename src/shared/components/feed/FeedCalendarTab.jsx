@@ -1,13 +1,19 @@
-import { useMemo } from 'react'
-import { upcomingMonths, postIdeasByMonth } from '../../data/index.js'
-import { usePostsCrud } from '@shared/usePostsCrud.js'
-import PostDrawer from '@shared/components/feed/PostDrawer.jsx'
+import { usePostsCrud } from '../../usePostsCrud.js'
 import MonthGrid from './MonthGrid.jsx'
+import PostDrawer from './PostDrawer.jsx'
 
-const CLIENTE = 'adm-evolution-feed'
+// Janela de meses exibida no calendário. `offset` pula meses a partir do
+// atual (offset 1 = começa no mês seguinte, tirando o mês corrente da visão).
+function upcomingMonths(count = 2, offset = 0) {
+  const now = new Date()
+  return Array.from({ length: count }, (_, i) => {
+    const d = new Date(now.getFullYear(), now.getMonth() + offset + i, 1)
+    return { year: d.getFullYear(), monthIndex: d.getMonth() }
+  })
+}
 
-export default function FeedCalendarTab() {
-  const months = upcomingMonths(2, 1)
+export default function FeedCalendarTab({ clientId, monthsCount = 2, monthsOffset = 0 }) {
+  const months = upcomingMonths(monthsCount, monthsOffset)
 
   const {
     postsByDate,
@@ -18,25 +24,15 @@ export default function FeedCalendarTab() {
     handleCreate,
     handleUpdate,
     handleDelete,
-  } = usePostsCrud(CLIENTE)
-
-  const ideasByDate = useMemo(() => {
-    const map = new Map()
-    for (const month of postIdeasByMonth) {
-      for (const idea of month.ideas) {
-        if (idea.date) map.set(idea.date, idea)
-      }
-    }
-    return map
-  }, [])
+  } = usePostsCrud(clientId)
 
   return (
     <div className="panel">
       <div className="calendar-head">
-        <h2>Calendário de feed</h2>
+        <h2>Calendário de posts</h2>
       </div>
       <p className="section-desc">
-        Clique em qualquer dia para subir a foto do post com a legenda.
+        Clique em qualquer dia para agendar o post: legenda, referência, material e foto pronta.
       </p>
 
       {error && <div className="banner-error">{error}</div>}
@@ -48,7 +44,6 @@ export default function FeedCalendarTab() {
             year={m.year}
             monthIndex={m.monthIndex}
             postsByDate={postsByDate}
-            ideasByDate={ideasByDate}
             onSelectDate={setSelectedDate}
           />
         ))}
@@ -57,7 +52,7 @@ export default function FeedCalendarTab() {
       {selectedDate && (
         <PostDrawer
           date={selectedDate}
-          clientId={CLIENTE}
+          clientId={clientId}
           posts={postsDoDia}
           onClose={() => setSelectedDate(null)}
           onCreate={handleCreate}
