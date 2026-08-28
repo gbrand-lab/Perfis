@@ -40,7 +40,7 @@
 .dash__inner{max-width:1120px;margin:0 auto;padding:0 24px 64px;}
 
 .dash__header{
-  display:flex;align-items:center;justify-content:space-between;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;
   padding:40px 0 28px;border-bottom:1px solid var(--dash-line);
 }
 .dash__eyebrow{
@@ -103,3 +103,12 @@
   background:var(--dash-bg);color:var(--dash-text);font-size:.95rem;
 }
 .dash__card-edit-actions{display:flex;gap:10px;}
+
+@media (max-width:640px){
+  .dash__inner{padding-left:16px;padding-right:16px;}
+  .dash__header{padding:28px 0 20px;}
+  .dash__header h1{font-size:1.5rem;}
+  .dash__grid{grid-template-columns:1fr;padding:24px 0;gap:14px;}
+  .dash__card-actions{position:static;justify-content:flex-end;margin-top:4px;}
+  .dash__card{gap:14px;}
+}

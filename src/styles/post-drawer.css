@@ -41,6 +41,16 @@
   .drawer--wide{width:100%;}
 }
 
+@media (max-width:480px){
+  .drawer-overlay{padding:0;align-items:flex-end;}
+  .drawer{
+    width:100%;max-height:calc(100vh - 24px);border-radius:16px 16px 0 0;padding:16px;
+  }
+  .post-page-row{grid-template-columns:1fr;}
+  .post-page{padding:12px;}
+  .post-page-header{flex-wrap:wrap;}
+}
+
 .field{margin-bottom:0;display:flex;flex-direction:column;}
 .field label{font-size:.8rem;font-weight:600;margin-bottom:4px;color:var(--text-mute);}
 .field textarea,.field input,.field select{
@@ -58,15 +68,20 @@
 .roteiro-cena-num{
   font-size:.76rem;font-weight:700;color:var(--text-mute);padding-top:8px;flex-shrink:0;width:20px;
 }
-.roteiro-cena-fields{display:flex;flex-direction:column;gap:6px;flex:1;}
+.roteiro-cena-fields{display:flex;flex-direction:column;gap:6px;flex:1;min-width:0;}
 .roteiro-cena-fields textarea{
-  padding:8px 10px;border:1px solid var(--line);border-radius:8px;
+  width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:8px;
   font-size:.86rem;font-family:inherit;background:var(--surface);color:var(--text);
 }
 .roteiro-take-row{display:flex;gap:8px;align-items:center;}
 .roteiro-take-row input{
-  flex:1;padding:8px 10px;border:1px solid var(--line);border-radius:8px;
+  flex:1;min-width:0;padding:8px 10px;border:1px solid var(--line);border-radius:8px;
   font-size:.86rem;font-family:inherit;background:var(--surface);color:var(--text);
+}
+
+@media (max-width:480px){
+  .roteiro-cena-row{flex-wrap:wrap;}
+  .roteiro-cena-row .btn-link{margin-left:28px;}
 }
 
 .image-section{display:flex;flex-direction:column;gap:6px;}

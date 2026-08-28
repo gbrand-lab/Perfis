@@ -11,7 +11,7 @@
 
 /* ---- Header ---- */
 .top{
-  display:flex;align-items:center;gap:20px;
+  display:flex;align-items:center;flex-wrap:wrap;gap:12px 20px;
   padding:32px 0 22px;
   border-bottom:3px solid var(--ink-deep);
 }
@@ -47,3 +47,16 @@
   border:1.5px dashed var(--line);border-radius:12px;padding:36px 28px;max-width:70ch;
 }
 .empty-state p{color:var(--text-mute);font-size:.92rem;margin-top:10px;}
+
+/* ---- Horizontal-scroll wrapper for wide tables ---- */
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+
+@media (max-width:640px){
+  .app{padding-left:16px;padding-right:16px;}
+  .top{padding:22px 0 16px;gap:10px 16px;}
+  .back-btn{padding:8px 14px;font-size:.84rem;}
+  .tabs{padding:12px 0;gap:8px;}
+  .tab-btn{padding:8px 14px;font-size:.82rem;}
+  .panel{gap:32px;}
+  .empty-state{padding:24px 18px;}
+}

@@ -36,24 +36,26 @@ function ChecklistCard({ post, onMarcarCaptado, marking }) {
         <>
           {post.roteiro?.sobre && <p className="checklist-card-sobre">{post.roteiro.sobre}</p>}
           {(post.roteiro?.cenas ?? []).length > 0 && (
-            <table className="checklist-roteiro-table">
-              <thead>
-                <tr>
-                  <th>Cena</th>
-                  <th>Ação na tela</th>
-                  <th>Texto / Áudio</th>
-                </tr>
-              </thead>
-              <tbody>
-                {post.roteiro.cenas.map((cena, i) => (
-                  <tr key={i}>
-                    <td>{String(i + 1).padStart(2, '0')}</td>
-                    <td>{cena.acaoNaTela}</td>
-                    <td>{cena.textoAudio}</td>
+            <div className="table-scroll">
+              <table className="checklist-roteiro-table">
+                <thead>
+                  <tr>
+                    <th>Cena</th>
+                    <th>Ação na tela</th>
+                    <th>Texto / Áudio</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {post.roteiro.cenas.map((cena, i) => (
+                    <tr key={i}>
+                      <td>{String(i + 1).padStart(2, '0')}</td>
+                      <td>{cena.acaoNaTela}</td>
+                      <td>{cena.textoAudio}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           )}
           {takes.length > 0 && (
             <div className="checklist-takes">

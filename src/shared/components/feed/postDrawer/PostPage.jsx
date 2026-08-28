@@ -29,10 +29,6 @@ export default function PostPage({ date, post, clientId, onSave, onDelete, onCan
       setError('O nome do post é obrigatório.')
       return
     }
-    if (!descricao.trim()) {
-      setError('A legenda é obrigatória.')
-      return
-    }
     setError(null)
     setSubmitting(true)
     try {
@@ -94,6 +90,7 @@ export default function PostPage({ date, post, clientId, onSave, onDelete, onCan
               onChange={(e) => setNome(e.target.value)}
               placeholder="Ex: Produto - Rótulo IPA"
             />
+            {error && <span className="field-error">{error}</span>}
           </div>
 
           <div className="post-page-row">
@@ -131,7 +128,6 @@ export default function PostPage({ date, post, clientId, onSave, onDelete, onCan
               rows={5}
               placeholder="Roteiro / texto de trabalho do post"
             />
-            {error && <span className="field-error">{error}</span>}
           </div>
 
           {tipo === 'video' ? (
