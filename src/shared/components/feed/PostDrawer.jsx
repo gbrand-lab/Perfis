@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { formatDateLong, downloadImage } from './postDrawer/imageUtils.js'
 import PostPage from './postDrawer/PostPage.jsx'
 
-export default function PostDrawer({ date, clientId, posts, onClose, onCreate, onUpdate, onDelete }) {
+export default function PostDrawer({ date, clientId, posts, onClose, onCreate, onUpdate, onDelete, onDateChanged }) {
   const [addingNew, setAddingNew] = useState(posts.length === 0)
   const [confirmingId, setConfirmingId] = useState(null)
   const [fullscreenImage, setFullscreenImage] = useState(null)
@@ -10,6 +10,12 @@ export default function PostDrawer({ date, clientId, posts, onClose, onCreate, o
   async function handleCreateNew(input) {
     await onCreate(input)
     setAddingNew(false)
+    if (input.data !== date) onDateChanged?.(input.data)
+  }
+
+  async function handleUpdatePost(id, input) {
+    await onUpdate(id, input)
+    if (input.data !== date) onDateChanged?.(input.data)
   }
 
   function handleDeleteClick(id) {
@@ -37,7 +43,7 @@ export default function PostDrawer({ date, clientId, posts, onClose, onCreate, o
               date={date}
               post={post}
               clientId={clientId}
-              onSave={(input) => onUpdate(post.id, input)}
+              onSave={(input) => handleUpdatePost(post.id, input)}
               onDelete={() => handleDeleteClick(post.id)}
               onPreview={setFullscreenImage}
               confirming={confirmingId === post.id}

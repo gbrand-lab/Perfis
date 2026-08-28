@@ -5,7 +5,7 @@ import MonthGrid from './MonthGrid.jsx'
 import PostDrawer from './PostDrawer.jsx'
 
 export default function FeedCalendarTab({ clientId }) {
-  const { year, monthIndex, goPrev, goNext, goToday } = useMonthCursor()
+  const { year, monthIndex, goPrev, goNext, goToday, goToDate } = useMonthCursor()
 
   const {
     postsByDate,
@@ -49,6 +49,10 @@ export default function FeedCalendarTab({ clientId }) {
           onCreate={handleCreate}
           onUpdate={handleUpdate}
           onDelete={handleDelete}
+          onDateChanged={(newDate) => {
+            setSelectedDate(null)
+            goToDate(newDate)
+          }}
         />
       )}
     </div>

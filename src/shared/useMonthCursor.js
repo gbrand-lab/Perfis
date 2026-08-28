@@ -25,8 +25,14 @@ export function useMonthCursor() {
     setCursor({ year: n.getFullYear(), monthIndex: n.getMonth() })
   }
 
+  // Pula o cursor pro mês de uma data "YYYY-MM-DD" (ex: post movido pro mês seguinte).
+  function goToDate(dateKey) {
+    const [year, month] = dateKey.split('-').map(Number)
+    setCursor({ year, monthIndex: month - 1 })
+  }
+
   return useMemo(
-    () => ({ year: cursor.year, monthIndex: cursor.monthIndex, goPrev, goNext, goToday }),
+    () => ({ year: cursor.year, monthIndex: cursor.monthIndex, goPrev, goNext, goToday, goToDate }),
     [cursor]
   )
 }

@@ -63,6 +63,7 @@ export default function FeedCalendarTab() {
           onCreate={handleCreate}
           onUpdate={handleUpdate}
           onDelete={handleDelete}
+          onDateChanged={() => setSelectedDate(null)}
         />
       )}
     </div>

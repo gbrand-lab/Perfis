@@ -55,12 +55,16 @@ export default function PostPage({ date, post, clientId, onSave, onDelete, onCan
   return (
     <div className="post-page">
       <div className="post-page-header">
-        <input
-          type="date"
-          className="post-page-date"
-          value={dataPost}
-          onChange={(e) => setDataPost(e.target.value)}
-        />
+        <div className="field field--inline">
+          <label htmlFor={`data-${post?.id ?? 'new'}`}>Data do post</label>
+          <input
+            id={`data-${post?.id ?? 'new'}`}
+            type="date"
+            className="post-page-date"
+            value={dataPost}
+            onChange={(e) => setDataPost(e.target.value)}
+          />
+        </div>
         <div className="post-page-header-actions">
           {post && (
             <button
