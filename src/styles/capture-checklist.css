@@ -26,3 +26,11 @@
 
 .checklist-takes ul{margin:6px 0 0;padding-left:18px;font-size:.86rem;}
 .checklist-takes li{margin-bottom:4px;}
+
+.checklist-takes-extras{margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);}
+.checklist-takes-extras ul{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:4px;}
+.checklist-takes-extras li{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  font-size:.86rem;padding:4px 0;
+}
+.checklist-takes-extras .roteiro-take-row{margin-top:8px;}

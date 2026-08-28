@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { usePostsCrud } from '../../usePostsCrud.js'
+import { useMonthCursor } from '../../useMonthCursor.js'
+import MonthNav from '../layout/MonthNav.jsx'
 
 function fmtDateLong(iso) {
   const [year, month, day] = iso.split('-').map(Number)
@@ -8,15 +10,60 @@ function fmtDateLong(iso) {
 }
 
 // Todo take do checklist: 1 por cena do roteiro (resumido pela ação na
-// tela) + os takes extras que quem planejou adicionou à mão.
+// tela) — os takes extras aparecem à parte, como lista editável direto na
+// captação.
 function takesDoPost(post) {
   const cenas = post.roteiro?.cenas ?? []
-  const daseCenas = cenas.map((c, i) => `Cena ${i + 1} — ${c.acaoNaTela || '(sem descrição)'}`)
-  const extras = post.roteiro?.takesExtras ?? []
-  return [...daseCenas, ...extras]
+  return cenas.map((c, i) => `Cena ${i + 1} — ${c.acaoNaTela || '(sem descrição)'}`)
 }
 
-function ChecklistCard({ post, onMarcarCaptado, marking }) {
+function ExtraTakes({ post, onUpdateTakes }) {
+  const [novoTake, setNovoTake] = useState('')
+  const takesExtras = post.roteiro?.takesExtras ?? []
+
+  function addTake() {
+    const value = novoTake.trim()
+    if (!value) return
+    onUpdateTakes(post, [...takesExtras, value])
+    setNovoTake('')
+  }
+
+  function removeTake(index) {
+    onUpdateTakes(post, takesExtras.filter((_, i) => i !== index))
+  }
+
+  return (
+    <div className="checklist-takes-extras">
+      <span className="image-section-label">Takes extras (além de 1 por cena)</span>
+      {takesExtras.length > 0 && (
+        <ul>
+          {takesExtras.map((take, i) => (
+            <li key={i}>
+              <span>{take}</span>
+              <button type="button" className="btn-link btn-danger" onClick={() => removeTake(i)}>
+                remover
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+      <div className="roteiro-take-row">
+        <input
+          type="text"
+          value={novoTake}
+          onChange={(e) => setNovoTake(e.target.value)}
+          onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); addTake() } }}
+          placeholder="Ex: take de b-roll do escritório"
+        />
+        <button type="button" className="btn-secondary" onClick={addTake}>
+          + Adicionar take extra
+        </button>
+      </div>
+    </div>
+  )
+}
+
+function ChecklistCard({ post, onMarcarCaptado, onUpdateTakes, marking }) {
   const isVideo = post.tipo === 'video'
   const takes = isVideo ? takesDoPost(post) : []
 
@@ -67,6 +114,7 @@ function ChecklistCard({ post, onMarcarCaptado, marking }) {
               </ul>
             </div>
           )}
+          <ExtraTakes post={post} onUpdateTakes={onUpdateTakes} />
         </>
       ) : (
         <p className="checklist-card-descricao">
@@ -80,9 +128,14 @@ function ChecklistCard({ post, onMarcarCaptado, marking }) {
 export default function CaptureChecklistTab({ clientId }) {
   const { posts, error, handleUpdate } = usePostsCrud(clientId)
   const [markingId, setMarkingId] = useState(null)
+  const { year, monthIndex, goPrev, goNext, goToday } = useMonthCursor()
 
   const pendentes = posts
     .filter((p) => p.materialStatus === 'preciso-captar')
+    .filter((p) => {
+      const [y, m] = p.data.split('-').map(Number)
+      return y === year && m - 1 === monthIndex
+    })
     .sort((a, b) => a.data.localeCompare(b.data))
 
   const porData = new Map()
@@ -100,6 +153,10 @@ export default function CaptureChecklistTab({ clientId }) {
     }
   }
 
+  async function atualizarTakes(post, takesExtras) {
+    await handleUpdate(post.id, { ...post, roteiro: { ...post.roteiro, takesExtras } })
+  }
+
   return (
     <div className="panel">
       <div className="calendar-head">
@@ -112,10 +169,12 @@ export default function CaptureChecklistTab({ clientId }) {
 
       {error && <div className="banner-error">{error}</div>}
 
+      <MonthNav year={year} monthIndex={monthIndex} onPrev={goPrev} onNext={goNext} onToday={goToday} />
+
       {porData.size === 0 ? (
         <div className="empty-state">
           <h3>Nada pendente</h3>
-          <p>Nenhum post do calendário está marcado como "preciso captar" no momento.</p>
+          <p>Nenhum post desse mês está marcado como "preciso captar" no momento.</p>
         </div>
       ) : (
         <div className="checklist-dates">
@@ -128,6 +187,7 @@ export default function CaptureChecklistTab({ clientId }) {
                     key={post.id}
                     post={post}
                     onMarcarCaptado={() => marcarCaptado(post)}
+                    onUpdateTakes={atualizarTakes}
                     marking={markingId === post.id}
                   />
                 ))}

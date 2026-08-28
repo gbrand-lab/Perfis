@@ -1,19 +1,11 @@
 import { usePostsCrud } from '../../usePostsCrud.js'
+import { useMonthCursor } from '../../useMonthCursor.js'
+import MonthNav from '../layout/MonthNav.jsx'
 import MonthGrid from './MonthGrid.jsx'
 import PostDrawer from './PostDrawer.jsx'
 
-// Janela de meses exibida no calendário. `offset` pula meses a partir do
-// atual (offset 1 = começa no mês seguinte, tirando o mês corrente da visão).
-function upcomingMonths(count = 2, offset = 0) {
-  const now = new Date()
-  return Array.from({ length: count }, (_, i) => {
-    const d = new Date(now.getFullYear(), now.getMonth() + offset + i, 1)
-    return { year: d.getFullYear(), monthIndex: d.getMonth() }
-  })
-}
-
-export default function FeedCalendarTab({ clientId, monthsCount = 2, monthsOffset = 0 }) {
-  const months = upcomingMonths(monthsCount, monthsOffset)
+export default function FeedCalendarTab({ clientId }) {
+  const { year, monthIndex, goPrev, goNext, goToday } = useMonthCursor()
 
   const {
     postsByDate,
@@ -37,16 +29,15 @@ export default function FeedCalendarTab({ clientId, monthsCount = 2, monthsOffse
 
       {error && <div className="banner-error">{error}</div>}
 
+      <MonthNav year={year} monthIndex={monthIndex} onPrev={goPrev} onNext={goNext} onToday={goToday} />
+
       <div className="months-stack">
-        {months.map((m) => (
-          <MonthGrid
-            key={`${m.year}-${m.monthIndex}`}
-            year={m.year}
-            monthIndex={m.monthIndex}
-            postsByDate={postsByDate}
-            onSelectDate={setSelectedDate}
-          />
-        ))}
+        <MonthGrid
+          year={year}
+          monthIndex={monthIndex}
+          postsByDate={postsByDate}
+          onSelectDate={setSelectedDate}
+        />
       </div>
 
       {selectedDate && (

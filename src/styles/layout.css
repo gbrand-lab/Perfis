@@ -42,6 +42,23 @@
 .panel h2{font-size:1.3rem;font-weight:600;margin-bottom:14px;}
 .section-desc{color:var(--text-mute);font-size:.92rem;max-width:70ch;margin:0 0 8px;line-height:1.5;}
 
+/* ---- Month nav (setas de navegação de mês) ---- */
+.month-nav{
+  display:flex;align-items:center;gap:14px;margin:18px 0 6px;
+}
+.month-nav-btn{
+  width:34px;height:34px;flex-shrink:0;border-radius:999px;border:1.5px solid var(--line);
+  background:var(--surface);color:var(--text);font-size:1.1rem;line-height:1;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+}
+.month-nav-btn:hover{border-color:var(--accent);color:var(--accent-deep);}
+.month-nav-label{
+  display:flex;align-items:baseline;gap:8px;font-weight:700;font-size:1.15rem;
+  min-width:150px;
+}
+.month-nav-year{font-weight:600;font-size:.85rem;color:var(--text-mute);}
+.month-nav-today{margin-left:4px;}
+
 /* ---- Empty state ---- */
 .empty-state{
   border:1.5px dashed var(--line);border-radius:12px;padding:36px 28px;max-width:70ch;
@@ -59,4 +76,6 @@
   .tab-btn{padding:8px 14px;font-size:.82rem;}
   .panel{gap:32px;}
   .empty-state{padding:24px 18px;}
+  .month-nav-label{min-width:0;font-size:1.02rem;}
+  .month-nav-today{margin-left:0;}
 }
