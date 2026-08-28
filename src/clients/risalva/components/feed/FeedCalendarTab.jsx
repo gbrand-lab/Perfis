@@ -4,7 +4,7 @@ import { usePostsCrud } from '@shared/usePostsCrud.js'
 import PostDrawer from '@shared/components/feed/PostDrawer.jsx'
 import MonthGrid from './MonthGrid.jsx'
 
-const CLIENTE = 'risalva-feed'
+export const CLIENTE = 'risalva-feed'
 
 export default function FeedCalendarTab() {
   const months = upcomingMonths(2, 1)

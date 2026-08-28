@@ -4,7 +4,7 @@ import { usePostsCrud } from '@shared/usePostsCrud.js'
 import PostDrawer from '@shared/components/feed/PostDrawer.jsx'
 import MonthGrid from './MonthGrid.jsx'
 
-const CLIENTE = 'styllus-eventos-feed'
+export const CLIENTE = 'styllus-eventos-feed'
 
 export default function FeedCalendarTab() {
   const ideasByDate = useMemo(() => {

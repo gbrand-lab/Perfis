@@ -1,0 +1,28 @@
+/* ---- Checklist de captação ---- */
+.checklist-dates{display:flex;flex-direction:column;gap:24px;}
+.checklist-date-title{font-size:1rem;margin:0 0 10px;text-transform:capitalize;}
+.checklist-cards{display:flex;flex-direction:column;gap:14px;}
+
+.checklist-card{
+  border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--bg);
+}
+.checklist-card-header{
+  display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:8px;
+}
+.checklist-card-header h3{margin:2px 0 0;font-size:.98rem;}
+.checklist-card-tag{
+  font-size:.68rem;font-weight:700;letter-spacing:.04em;color:var(--text-mute);
+}
+.checklist-card-sobre{color:var(--text-mute);font-size:.86rem;margin:0 0 10px;}
+.checklist-card-descricao{font-size:.9rem;margin:0;white-space:pre-wrap;}
+
+.checklist-roteiro-table{width:100%;border-collapse:collapse;margin-bottom:12px;font-size:.84rem;}
+.checklist-roteiro-table th{
+  text-align:left;font-size:.7rem;text-transform:uppercase;letter-spacing:.04em;
+  color:var(--text-mute);padding:4px 8px;border-bottom:1px solid var(--line);
+}
+.checklist-roteiro-table td{padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top;}
+.checklist-roteiro-table tr:last-child td{border-bottom:none;}
+
+.checklist-takes ul{margin:6px 0 0;padding-left:18px;font-size:.86rem;}
+.checklist-takes li{margin-bottom:4px;}

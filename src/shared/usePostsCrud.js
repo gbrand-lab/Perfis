@@ -90,6 +90,7 @@ export function usePostsCrud(clientId) {
   }
 
   return {
+    posts,
     postsByDate,
     postsDoDia,
     selectedDate,

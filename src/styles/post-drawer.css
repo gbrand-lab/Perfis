@@ -43,12 +43,31 @@
 
 .field{margin-bottom:0;display:flex;flex-direction:column;}
 .field label{font-size:.8rem;font-weight:600;margin-bottom:4px;color:var(--text-mute);}
-.field textarea{
+.field textarea,.field input,.field select{
   padding:8px 10px;border:1px solid var(--line);border-radius:8px;
   font-size:.9rem;font-family:inherit;background:var(--surface);color:var(--text);
 }
-.field textarea:focus{outline:none;border-color:var(--accent);}
+.field textarea:focus,.field input:focus,.field select:focus{outline:none;border-color:var(--accent);}
 .field-error{color:#a4292a;font-size:.76rem;margin-top:4px;}
+
+.post-page-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+
+.roteiro-editor{display:flex;flex-direction:column;gap:10px;}
+.roteiro-cenas,.roteiro-takes{display:flex;flex-direction:column;gap:8px;}
+.roteiro-cena-row{display:flex;gap:8px;align-items:flex-start;}
+.roteiro-cena-num{
+  font-size:.76rem;font-weight:700;color:var(--text-mute);padding-top:8px;flex-shrink:0;width:20px;
+}
+.roteiro-cena-fields{display:flex;flex-direction:column;gap:6px;flex:1;}
+.roteiro-cena-fields textarea{
+  padding:8px 10px;border:1px solid var(--line);border-radius:8px;
+  font-size:.86rem;font-family:inherit;background:var(--surface);color:var(--text);
+}
+.roteiro-take-row{display:flex;gap:8px;align-items:center;}
+.roteiro-take-row input{
+  flex:1;padding:8px 10px;border:1px solid var(--line);border-radius:8px;
+  font-size:.86rem;font-family:inherit;background:var(--surface);color:var(--text);
+}
 
 .image-section{display:flex;flex-direction:column;gap:6px;}
 .image-section-label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--text-mute);}

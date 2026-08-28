@@ -1,11 +1,15 @@
 import { useState } from 'react'
 import ImageSection from './ImageSection.jsx'
+import RoteiroEditor from './RoteiroEditor.jsx'
 
 export default function PostPage({ date, post, clientId, onSave, onDelete, onCancel, onPreview, confirming }) {
   const [dataPost, setDataPost] = useState(post?.data ?? date)
   const [nome, setNome] = useState(post?.nome ?? '')
   const [descricao, setDescricao] = useState(post?.descricao ?? '')
   const [legenda, setLegenda] = useState(post?.legenda ?? '')
+  const [tipo, setTipo] = useState(post?.tipo ?? 'imagem')
+  const [materialStatus, setMaterialStatus] = useState(post?.materialStatus ?? 'tenho')
+  const [roteiro, setRoteiro] = useState(post?.roteiro ?? {})
   const [referenciaImagens, setReferenciaImagens] = useState(post?.referenciaImagens ?? [])
   const [materialImagens, setMaterialImagens] = useState(post?.materialImagens ?? [])
   const [fotoProntaImagens, setFotoProntaImagens] = useState(post?.fotoProntaImagens ?? [])
@@ -38,6 +42,9 @@ export default function PostPage({ date, post, clientId, onSave, onDelete, onCan
         nome: nome.trim(),
         descricao: descricao.trim(),
         legenda: legenda.trim(),
+        tipo,
+        materialStatus,
+        roteiro,
         referenciaImagens,
         materialImagens,
         fotoProntaImagens,
@@ -89,6 +96,32 @@ export default function PostPage({ date, post, clientId, onSave, onDelete, onCan
             />
           </div>
 
+          <div className="post-page-row">
+            <div className="field">
+              <label htmlFor={`tipo-${post?.id ?? 'new'}`}>Tipo de conteúdo</label>
+              <select
+                id={`tipo-${post?.id ?? 'new'}`}
+                value={tipo}
+                onChange={(e) => setTipo(e.target.value)}
+              >
+                <option value="imagem">Imagem / Estático</option>
+                <option value="video">Vídeo / Reels</option>
+              </select>
+            </div>
+
+            <div className="field">
+              <label htmlFor={`material-${post?.id ?? 'new'}`}>Material</label>
+              <select
+                id={`material-${post?.id ?? 'new'}`}
+                value={materialStatus}
+                onChange={(e) => setMaterialStatus(e.target.value)}
+              >
+                <option value="tenho">Tenho material</option>
+                <option value="preciso-captar">Preciso captar</option>
+              </select>
+            </div>
+          </div>
+
           <div className="field">
             <label htmlFor={`copy-${post?.id ?? 'new'}`}>Copy</label>
             <textarea
@@ -100,6 +133,21 @@ export default function PostPage({ date, post, clientId, onSave, onDelete, onCan
             />
             {error && <span className="field-error">{error}</span>}
           </div>
+
+          {tipo === 'video' ? (
+            <RoteiroEditor roteiro={roteiro} onChange={setRoteiro} idPrefix={`roteiro-${post?.id ?? 'new'}`} />
+          ) : (
+            <div className="field">
+              <label htmlFor={`img-desc-${post?.id ?? 'new'}`}>Descrição da imagem</label>
+              <textarea
+                id={`img-desc-${post?.id ?? 'new'}`}
+                value={roteiro.descricaoImagem ?? ''}
+                onChange={(e) => setRoteiro({ ...roteiro, descricaoImagem: e.target.value })}
+                rows={4}
+                placeholder="O que fotografar: ângulos, cenário, referência — vira o item do checklist de captação"
+              />
+            </div>
+          )}
 
           <ImageSection
             label="Referência"
